@@ -57,9 +57,14 @@ export class CountdownComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   updateTitle(event: Event) {
-    this.title = (event.target as HTMLInputElement).value;
-    this.saveToLocalStorage();
-    this.adjustFontSize();
+    
+    setTimeout(() => {
+      this.adjustFontSize();
+      this.title = (event.target as HTMLInputElement).value;
+      this.saveToLocalStorage();
+
+    }, 200);
+      
   }
 
   adjustFontSize() {
@@ -68,7 +73,7 @@ export class CountdownComponent implements OnInit, AfterViewInit, OnDestroy {
       let fontSize = 10;
       element.style.fontSize = `${fontSize}vw`;
       while (element.scrollWidth > element.clientWidth && fontSize > 0) {
-        fontSize -= 0.6;
+        fontSize -= 0.8;
         element.style.fontSize = `${fontSize}vw`;
       }
     }

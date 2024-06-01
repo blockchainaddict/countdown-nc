@@ -8,6 +8,7 @@
   <div class="countdown">
     <span #dateElement>{{ timeLeft }}</span>
   </div>
+  
   <form class="form">
     <fieldset class="input-group">
       <legend>Title</legend>
@@ -16,7 +17,7 @@
         type="text" 
         name="title" 
         placeholder="Name your event" 
-        [(ngModel)]="title" 
+        [value]="title" 
         (input)="updateTitle($event)"
       />
     </fieldset>
