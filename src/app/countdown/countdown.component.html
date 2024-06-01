@@ -1,0 +1,38 @@
+<div class="container">
+
+  <!-- <div class="title">
+    <h1>Time to {{ title }}</h1>
+  </div> -->
+
+  <div class="title">
+    <h1 *ngIf="title" #titleElement>Time to {{ title }}</h1>
+    <p *ngIf="!title" #titleElement>Start by naming your event and setting its date.</p>
+  </div>
+
+  <div class="countdown">
+    <span #dateElement @fadeIn>{{ timeLeft }}</span>
+  </div>
+  <form class="inputs">
+    <fieldset class="input-group">
+      <legend>Title</legend>
+      <input 
+        id="title" 
+        type="text" 
+        name="title" 
+        placeholder="Event name" 
+        [(ngModel)]="title" 
+        (input)="updateTitle($event)"
+      />
+    </fieldset>
+    <fieldset class="input-group">
+      <legend for="date">Date</legend>
+      <input 
+        id="date" 
+        type="date" 
+        name="date"
+        [(ngModel)]="date" 
+        (ngModelChange)="onDateChange($event)" 
+      />
+    </fieldset>
+  </form>
+</div>
