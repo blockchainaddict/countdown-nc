@@ -1,3 +1,8 @@
+# Quickstart
+Run `npm i`
+Run `ng serve`
+Go to `http://localhost:4200/` on your browser
+
 # Description & requirements
 
 Your objective in this assignment is to create a countdown app built using this boilerplate (+ any other tools of your choice) that follows the design specifications provided [in this Figma file](https://www.figma.com/file/UPEugUz5jM9IzIkWft2Y9m/NC-challenge). The app should work in portrait as well as in landscape mode while the text displayed on the screen should always fill the whole width of the screen.

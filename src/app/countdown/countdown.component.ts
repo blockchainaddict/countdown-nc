@@ -1,90 +1,94 @@
-import { Component, OnInit, Renderer2, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Renderer2, ElementRef, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 
-
 @Component({
-  selector: 'app-countdown-component',
+  selector: 'app-countdown',
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './countdown.component.html',
   styleUrls: ['./countdown.component.scss'],
   animations: [
     trigger('fadeIn', [
-      state('void', style({
-        opacity: 0
-      })),
-      transition(':enter', [
-        animate('1s ease-in')
-      ])
-    ])
+      state('void', style({ opacity: 0 })),
+      transition(':enter', [animate('1s ease-in')])
+    ]),
   ]
 })
-
-export class CountdownComponent implements OnInit, AfterViewInit {
-  // Initialize variables for user interaction
+export class CountdownComponent implements OnInit, AfterViewInit, OnDestroy {
   title: string = '';
   date: string = '';
   timeLeft: string = '';
+  private intId: any;
 
-  // Reference to the title element
   @ViewChild('titleElement', { static: false }) titleElement?: ElementRef;
   @ViewChild('dateElement', { static: false }) dateElement?: ElementRef;
 
-  constructor(private renderer: Renderer2) {
-  }
+  constructor(private renderer: Renderer2) {}
 
   ngOnInit() {
+    this.loadFromLocalStorage();
     this.updateCountdown();
-    // Update countdown every second
-    setInterval(() => {
-      this.updateCountdown()
-      this.adjustDateFontSize();
-
-    }, 1000);
+    this.adjustDateFontSize();
+    this.intId = setInterval(() => this.updateCountdown(), 1000);
   }
 
   ngAfterViewInit() {
-    // this.adjustFontSize();
+    this.adjustFontSize();
     this.adjustDateFontSize();
   }
 
-  // Update title and adjust font size everytime input is changed
-  updateTitle(event: any): void {
-    this.title = event.target.value;
+  ngOnDestroy() {
+    if (this.intId) {
+      clearInterval(this.intId);
+    }
+  }
+
+  loadFromLocalStorage() {
+    this.title = localStorage.getItem('eventTitle') || '';
+    this.date = localStorage.getItem('eventDate') || '';
+    this.adjustFontSize();
+  }
+
+  saveToLocalStorage() {
+    localStorage.setItem('eventTitle', this.title);
+    localStorage.setItem('eventDate', this.date);
+  }
+
+  updateTitle(event: Event) {
+    this.title = (event.target as HTMLInputElement).value;
+    this.saveToLocalStorage();
     this.adjustFontSize();
   }
 
   adjustFontSize() {
-    // Check if title element exists
     if (this.titleElement) {
       const element = this.titleElement.nativeElement;
-      let fontSize = 10; // Make sure its = to the font defined in the .scss to avoid 'jumpy' behaviour
-      element.style.fontSize = fontSize + 'vw';
+      let fontSize = 10;
+      element.style.fontSize = `${fontSize}vw`;
       while (element.scrollWidth > element.clientWidth && fontSize > 0) {
-        fontSize -= 1; // Decrease font size until it fits
-        element.style.fontSize = fontSize + 'vw';
+        fontSize -= 0.6;
+        element.style.fontSize = `${fontSize}vw`;
       }
     }
   }
 
   adjustDateFontSize() {
-    // Check if title element exists
     if (this.dateElement) {
       const element = this.dateElement.nativeElement;
-      let fontSize = 10; // Make sure its = to the font defined in the .scss to avoid 'jumpy' behaviour
-      element.style.fontSize = fontSize + 'vw';
+      let fontSize = 10;
+      element.style.fontSize = `${fontSize}vw`;
       while (element.scrollWidth > element.clientWidth && fontSize > 0) {
-        fontSize -= 1; // Decrease font size until it fits
-        element.style.fontSize = (fontSize - 0.8) + 'vw';
+        fontSize -= 0.8;
+        element.style.fontSize = `${fontSize}vw`;
       }
     }
   }
 
-  onDateChange(event: any) {
+  onDateChange() {
     this.adjustDateFontSize();
-    console.log('Input date changed:', this.date);
+    this.saveToLocalStorage();
     this.updateCountdown();
   }
 
@@ -94,14 +98,10 @@ export class CountdownComponent implements OnInit, AfterViewInit {
       return;
     }
 
-    // this.adjustDateFontSize();
-
-    // Calculate time left until event
     const eventDate = new Date(this.date).getTime();
-    const now = new Date().getTime();
+    const now = Date.now();
     const distance = eventDate - now;
 
-    // Check if event has passed
     if (distance < 0) {
       this.timeLeft = 'The event has passed';
       return;
