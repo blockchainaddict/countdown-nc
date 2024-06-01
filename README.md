@@ -2,6 +2,8 @@
 Run `npm i` /
 Run `ng serve` /
 Go to `http://localhost:4200/` on your browser
+\n
+You can also visit 'https://countdown-nc.web.app/' to test it
 
 # Description & requirements
 
