@@ -44,8 +44,9 @@
   }
 }
 
-.inputs {
+.form {
   display: flex;
+  flex-direction: row;
   gap: 1rem;
 }
 
@@ -86,4 +87,10 @@ fieldset {
   border: 1px solid #ccc;
   padding: 10px;
   box-sizing: border-box;
+}
+
+@media screen and (max-width: 600px) {
+  .form{
+    flex-direction: column;
+  }
 }

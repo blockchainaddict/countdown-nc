@@ -1,14 +1,13 @@
 import { Component, OnInit, Renderer2, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 
 
 @Component({
   selector: 'app-countdown-component',
   standalone: true,
-  imports: [CommonModule, FormsModule, BrowserAnimationsModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './countdown.component.html',
   styleUrls: ['./countdown.component.scss'],
   animations: [
