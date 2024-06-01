@@ -25,7 +25,7 @@ export class CountdownComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('titleElement', { static: false }) titleElement?: ElementRef;
   @ViewChild('dateElement', { static: false }) dateElement?: ElementRef;
 
-  constructor(private renderer: Renderer2) {}
+  constructor(private renderer: Renderer2) { }
 
   ngOnInit() {
     this.loadFromLocalStorage();
@@ -57,14 +57,14 @@ export class CountdownComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   updateTitle(event: Event) {
-    
+    this.title = (event.target as HTMLInputElement).value;
+    this.adjustFontSize();
+    this.saveToLocalStorage();
+
     setTimeout(() => {
       this.adjustFontSize();
-      this.title = (event.target as HTMLInputElement).value;
-      this.saveToLocalStorage();
-
     }, 200);
-      
+
   }
 
   adjustFontSize() {
@@ -74,7 +74,13 @@ export class CountdownComponent implements OnInit, AfterViewInit, OnDestroy {
       element.style.fontSize = `${fontSize}vw`;
       while (element.scrollWidth > element.clientWidth && fontSize > 0) {
         fontSize -= 0.5;
+        console.log(element.scrollWidth, element.clientWidth);
+        console.log('font', fontSize);
+
         element.style.fontSize = `${fontSize}vw`;
+        console.log(element.style.fontSize);
+
+
       }
     }
   }
