@@ -3,7 +3,7 @@ Run `npm i` /
 Run `ng serve` /
 Go to `http://localhost:4200/` on your browser
  
-You can also visit 'https://countdown-nc.web.app/' to test it
+You can also visit https://countdown-nc.web.app/ to test it
 
 # Description & requirements
 
