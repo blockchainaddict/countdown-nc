@@ -73,7 +73,7 @@ export class CountdownComponent implements OnInit, AfterViewInit, OnDestroy {
       let fontSize = 10;
       element.style.fontSize = `${fontSize}vw`;
       while (element.scrollWidth > element.clientWidth && fontSize > 0) {
-        fontSize -= 0.8;
+        fontSize -= 0.5;
         element.style.fontSize = `${fontSize}vw`;
       }
     }

@@ -19,6 +19,7 @@
         placeholder="Name your event" 
         [value]="title" 
         (input)="updateTitle($event)"
+        (paste)="updateTitle($event)"
       />
     </fieldset>
     <fieldset class="input-group">
