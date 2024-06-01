@@ -1,6 +1,6 @@
 # Quickstart
-Run `npm i`
-Run `ng serve`
+Run `npm i` /
+Run `ng serve` /
 Go to `http://localhost:4200/` on your browser
 
 # Description & requirements
