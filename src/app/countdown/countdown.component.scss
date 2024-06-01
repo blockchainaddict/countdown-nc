@@ -55,6 +55,7 @@
   display: flex;
   flex-direction: row;
   gap: 1rem;
+  margin-top: 1rem;
 }
 
 .input-group {
@@ -99,5 +100,6 @@ fieldset {
 @media screen and (max-width: 600px) {
   .form{
     flex-direction: column;
+    margin-top: 20vh;
   }
 }
