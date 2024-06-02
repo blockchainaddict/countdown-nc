@@ -2,6 +2,7 @@ import { Component, OnInit, ElementRef, ViewChild, AfterViewInit, OnDestroy } fr
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { trigger, state, style, animate, transition } from '@angular/animations';
+import { adjustElementFontSize } from '../utils/font-utils';
 
 @Component({
   selector: 'app-countdown',
@@ -58,38 +59,22 @@ export class CountdownComponent implements OnInit, AfterViewInit, OnDestroy {
 
   updateTitle(event: Event) {
     this.title = (event.target as HTMLInputElement).value;
-    this.adjustFontSize();
     this.saveToLocalStorage();
 
     setTimeout(() => {
       this.adjustFontSize();
-    }, 200);
-
+    }, 300)
   }
 
   adjustFontSize() {
     if (this.titleElement) {
-      const element = this.titleElement.nativeElement;
-      let fontSize = 10;
-      element.style.fontSize = `${fontSize}vw`;
-      while (element.scrollWidth > element.clientWidth && fontSize > 0) {
-        fontSize -= 0.5;
-
-        element.style.fontSize = `${fontSize}vw`;
-
-      }
+      adjustElementFontSize(this.titleElement, 10, 0.5);
     }
   }
 
   adjustDateFontSize() {
     if (this.dateElement) {
-      const element = this.dateElement.nativeElement;
-      let fontSize = 10;
-      element.style.fontSize = `${fontSize}vw`;
-      while (element.scrollWidth > element.clientWidth && fontSize > 0) {
-        fontSize -= 0.8;
-        element.style.fontSize = `${fontSize}vw`;
-      }
+      adjustElementFontSize(this.dateElement, 10, 0.5);
     }
   }
 
