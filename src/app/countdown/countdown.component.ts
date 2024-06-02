@@ -18,13 +18,14 @@ import { adjustElementFontSize } from '../utils/font-utils';
   ]
 })
 export class CountdownComponent implements OnInit, AfterViewInit, OnDestroy {
-  title: string = '';
-  date: string = '';
-  timeLeft: string = '';
-  private intId: any;
+  title: string = ''; // Title of the event
+  date: string = ''; // Date of the event
+  timeLeft: string = ''; // Time left until the event
+  private intId: any; // Interval ID
 
-  @ViewChild('titleElement', { static: false }) titleElement?: ElementRef;
-  @ViewChild('dateElement', { static: false }) dateElement?: ElementRef;
+  // Element references: will be used to refer to the elements that need font-size adjusting
+  @ViewChild('titleElement', { static: false }) titleElement?: ElementRef; // 'titleElement' is a reference to the element with the id 'titleElement'
+  @ViewChild('dateElement', { static: false }) dateElement?: ElementRef; // 'dateElement' is a reference to the element with the id 'dateElement'
 
   constructor() { }
 
@@ -84,12 +85,15 @@ export class CountdownComponent implements OnInit, AfterViewInit, OnDestroy {
     this.updateCountdown();
   }
 
+  // Countdown logic
   updateCountdown() {
+    // Make sure the date is set
     if (!this.date) {
       this.timeLeft = '';
       return;
     }
 
+    // Get the 'distance' between now and the count down date
     const eventDate = new Date(this.date).getTime();
     const now = Date.now();
     const distance = eventDate - now;
@@ -99,6 +103,7 @@ export class CountdownComponent implements OnInit, AfterViewInit, OnDestroy {
       return;
     }
 
+    // Time calculations for days, hours, minutes and seconds
     const days = Math.floor(distance / (1000 * 60 * 60 * 24));
     const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
