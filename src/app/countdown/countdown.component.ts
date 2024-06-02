@@ -1,4 +1,4 @@
-import { Component, OnInit, Renderer2, ElementRef, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { trigger, state, style, animate, transition } from '@angular/animations';
@@ -25,7 +25,7 @@ export class CountdownComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('titleElement', { static: false }) titleElement?: ElementRef;
   @ViewChild('dateElement', { static: false }) dateElement?: ElementRef;
 
-  constructor(private renderer: Renderer2) { }
+  constructor() { }
 
   ngOnInit() {
     this.loadFromLocalStorage();
